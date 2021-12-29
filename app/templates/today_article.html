@@ -1,0 +1,90 @@
+<meta charset="UTF8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes" />
+<meta name="format-detection" content="telephone=no" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- %s是% (username) -->
+<title>EnglishPal Study Room for {{username}}</title>
+
+
+
+<body>
+    <!-- 这里判断登录状态 -->
+    <!-- if not session.get('logged_in'):
+        <p>请先<a href="/login">登录</a>。</p>
+
+    user_expiry_date = session.get('expiry_date')
+    if datetime.now().strftime('%Y%m%d') > user_expiry_date:
+        <p>账号 %s 过期。</p><p>为了提高服务质量，English Pal 收取会员费用， 每天0元。</p> <p>请决定你要试用的时间长度，扫描下面支付宝二维码支付。 支付时请注明<i>English Pal Membership Fee</i>。 我们会于12小时内激活账号。</p><p><img src="static/donate-the-author-hidden.jpg" width="120px" alt="支付宝二维码" /></p><p>如果有问题，请加开发者微信 torontohui。</p> <p><a href="/logout">登出</a></p> % (username)-->
+<div class="container-fluid">
+    <!--  %s是 % (username) -->
+    <p><b>English Pal for <font color="red">{{username}}</font></b> <a class="btn btn-secondary" href="/logout" role="button">登出</a></p>
+    <!-- 214行get_flashed_messages_if_any（）函数 -->
+    <div class="alert alert-warning" role="alert">'
+        <!--f'Congratulations! {message} -->
+        {{gfm}}
+    </div> 
+    <p><b>阅读文章并回答问题</b></p>
+    <!--  %s是 % (username) -->
+    <p><a class="btn btn-success" href="/{{username}}/reset" role="button"> 下一篇 Next Article </a></p>
+    <!--  %s是 % (get_today_article(user_freq_record, session['articleID'])) --> 
+    <div id="text-content">{{gtaa}}
+    
+<!-- main.py 130行开始 -->
+<!-- %4.2f是(user_level, text_level) -->
+<div class="alert alert-success" role="alert">According to your word list, your level is <span class="badge bg-success">{{user_level}}</span>  and we have chosen an article with a difficulty level of <span class="badge bg-success">{{text_level}}</span> for you.</div>
+<!-- %s是(d['date']) -->
+<p class="text-muted">Article added on: {{ddate}}</p>
+<div class="p-3 mb-2 bg-light text-dark">
+    <!-- (article_title) -->
+    <p class="display-3">{{article_title}}</p>
+    <!-- (article_body) -->
+    <p class="lead">
+        {%  autoescape off %}
+        {{article_body}}
+        {%  endautoescape %}
+    </p>
+    <!-- (d['source']) -->
+    <p><small class="text-muted">{{dsource}}</small></p>
+    <!-- (get_question_part(d['question'])) -->
+    <p><b>{{gqp}}</b></p>
+    <!-- (get_answer_part(d['question'])) -->
+    <br/>{{gap}}
+</div>
+<button onclick="toggle_visibility('answer');">ANSWER</button>
+<p><b>收集生词吧</b> （可以在正文中划词，也可以复制粘贴）</p>
+<!--  %s是 % (username) -->
+<form method="post" action="/{{username}}">
+    <textarea name="content" id="selected-words" rows="10" cols="120"></textarea><br/>
+    <input type="submit" value="get 所有词的频率"/>
+    <input type="reset" value="清除"/>
+</form>
+   
+<script>
+    function getWord(){
+        var word = window.getSelection?window.getSelection():document.selection.createRange().text;
+        return word;
+    }
+    function fillinWord(){
+        var element = document.getElementById("selected-words");
+        element.value = element.value + " " + getWord();
+    }
+    document.getElementById("text-content").addEventListener("click", fillinWord, false);
+    document.getElementById("text-content").addEventListener("touchstart", fillinWord, false);
+</script>
+{% if session['thisWord'] %}
+    <script type="text/javascript">
+                        //point to the anchor in the page whose id is aaa if it exists
+                        window.onload = function(){
+                            var element = document.getElementsByName("aaa");
+                            if (element != null)
+                                document.getElementsByName("aaa")[0].scrollIntoView(true);
+                        }
+                   </script>
+{% endif %}
+{%  autoescape off %}
+{{page}}
+{%  endautoescape %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</div>
+</div>
+</body>        

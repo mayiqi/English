@@ -1,0 +1,40 @@
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<title>EnglishPal 英文单词高效记</title>
+</head>
+<body>
+    <!-- 这里判断登录状态 -->
+    <!-- if not session.get('logged_in'):
+        <p>请先<a href="/login">登录</a>。</p>
+
+    user_expiry_date = session.get('expiry_date')
+    if datetime.now().strftime('%Y%m%d') > user_expiry_date:
+        <p>账号 %s 过期。</p><p>为了提高服务质量，English Pal 收取会员费用， 每天0元。</p> <p>请决定你要试用的时间长度，扫描下面支付宝二维码支付。 支付时请注明<i>English Pal Membership Fee</i>。 我们会于12小时内激活账号。</p><p><img src="static/donate-the-author-hidden.jpg" width="120px" alt="支付宝二维码" /></p><p>如果有问题，请加开发者微信 torontohui。</p> <p><a href="/logout">登出</a></p> % (username)-->
+    <div class="container-fluid"> 
+        <p><b><font size="+3" color="red">English Pal - Learn English smartly!</font></b></p>
+        {%if session.get('logged_in'): %}
+            <a href="{{su}}">{{su}}</a><!--  % (session['username'], session['username']) -->
+        {%else: %}
+            <p><a href="/login">登录</a> <a href="/signup">成为会员</a> <a href="/static/usr/instructions.html">使用说明</a></p>
+            {%endif %} <!-- %s 是(get_random_ads()) -->
+            <p><b>{{gra}}。<a href="/signup">试试</a>吧！</b></p>
+            <!-- %s 是(total_number_of_essays()) -->
+            <div class="alert alert-success" role="alert">共有文章 <span class="badge bg-success"> {{tnof}} </span> 篇</div>
+            <p>粘帖1篇文章 (English only)</p>
+            <form method="post" action="/">
+                <textarea name="content" rows="10" cols="120"></textarea><br/>
+                <input type="submit" value="get文章中的词频"/>
+                <input type="reset" value="清除"/>
+            </form>
+            <!-- for x in sort_in_descending_order(pickle_idea.dict2lst(d)): -->
+                <!-- if x[1] <= 99: -->
+                    <!-- break -->
+                <!-- <a href="%s">%s</a> %d [% (youdao_link(x[0]), x[0], x[1])] -->
+            <p><b>最常见的词</b></p>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>

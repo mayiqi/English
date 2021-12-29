@@ -1,0 +1,12 @@
+<meta charset="UTF8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes" />
+<p>勾选不认识的单词</p>
+<!-- %s是% (username) -->
+<form method="post" action="/{{username}}/mark">
+    <input type="submit" name="add-btn" value="加入我的生词簿"/>
+    <!-- 判断句式 -->
+    <!-- for x in lst: -->
+            <p><font color="grey">%d</font>: <a href="%s" title="%s">%s</a> (%d)  <input type="checkbox" name="marked" value="%s"></p> 
+            <!-- % (count, youdao_link(x[0]), appears_in_test(x[0], words_tests_dict), x[0], x[1], x[0]) -->
+            <!-- count += 1 -->
+</form>
